@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    any
-  }
+  agent any
   stage('build') {
     steps {
       echo 'step 1'
@@ -9,7 +7,7 @@ pipeline {
           // Run the maven build
           sh "mvn package"
         }
-    } 
+    }
   }
   post {
     always {
