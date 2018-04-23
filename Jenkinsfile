@@ -1,7 +1,6 @@
 pipeline {
   agent any
   stages {
-  
     /* Stage buld */
     stage('build') {
       steps {
