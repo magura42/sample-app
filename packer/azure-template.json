@@ -21,15 +21,15 @@
   "provisioners":[
     {
       "type": "file",
-      "source": "./target/gs-spring-boot-0.1.0.jar",
+      "source": "target/gs-spring-boot-0.1.0.jar",
       "destination": "/tmp/gs-spring-boot-0.1.0.jar"
     },
     {
         "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
         "scripts": [
-          "./scripts/java.sh",
-          "scripts/deploy.sh",
-          "scripts/deprovision.sh"
+          "packer/scripts/java.sh",
+          "packer/scripts/deploy.sh",
+          "packer/scripts/deprovision.sh"
         ],
         "inline_shebang": "/bin/sh -x",
         "type": "shell"
