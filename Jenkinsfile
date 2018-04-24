@@ -20,8 +20,10 @@ pipeline {
       }
       steps {
         wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
-          echo 'step to validate packer json..'
+          echo 'validate packer json..'
           sh "${PACKER_HOME}/packer validate packer/azure-template.json"
+          echo 'build packer...'
+          sh "${PACKER_HOME}/packer build packer/azure-template.json"
         }
       }
     }
