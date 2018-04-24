@@ -1,3 +1,6 @@
 target
 packer/packerenv.sh
 terraform/terraformenv.sh
+terraform/.terraform/
+terraform/outfile
+
