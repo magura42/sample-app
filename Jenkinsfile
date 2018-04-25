@@ -46,15 +46,13 @@ pipeline {
           dir ('terraform') {
             script {
               echo 'terraform init...'
+              sh "${TERRAFORM_HOME}/terraform init -input=false -backend-config=\"KEY=mh.terraform.tfstate\""
 
               echo 'terraform plan ..'
-              def exitcodePlan = sh "${TERRAFORM_HOME}/terraform plan -out tfplan -detailed-exitcode"
+              sh "${TERRAFORM_HOME}/terraform plan -out tfplan -detailed-exitcode"
 
-              if (exitcodePlan == 2) {
-                echo 'terraform apply...'
-              } else {
-                echo 'no changes present => abort terraform.'
-              }
+              echo 'terraform apply...'
+              sh "${TERRAFORM_HOME}/terraform apply -input=false -auto-approve tfplan"
             }
           }
         }
