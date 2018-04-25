@@ -11,6 +11,7 @@ pipeline {
         }
       }
     }
+    /*
     stage('packer') {
       environment {
         PACKER_HOME = tool name: 'packer-1.1.3', type: 'biz.neustar.jenkins.plugins.packer.PackerInstallation'
@@ -31,7 +32,7 @@ pipeline {
           sh "${PACKER_HOME}/packer build packer/azure-template.json"
         }
       }
-    }
+    }*/
     stage('terraform') {
       environment {
         TERRAFORM_HOME = tool name: 'terraform-0.11.3'
@@ -40,7 +41,7 @@ pipeline {
         ARM_CLIENT_SECRET=credentials('055c1ba4-c706-451c-aa45-0cd72ec796e8')
         ARM_TENANT_ID="787717a7-1bf4-4466-8e52-8ef7780c6c42"
         ARM_ENVIRONMENT="public"
-        TF_VAR_build_id="${env.BUILD_ID}"
+        TF_VAR_build_id="37"
         TF_VAR_user="mh"
         TF_VAR_password=credentials('055c1ba4-c706-451c-aa45-0cd72ec796e8')
       }
@@ -52,7 +53,7 @@ pipeline {
               sh "${TERRAFORM_HOME}/terraform init -input=false -backend-config=\"key=${TF_VAR_user}.terraform.tfstate\""
 
               echo 'terraform plan ..'
-              sh "${TERRAFORM_HOME}/terraform plan -out tfplan -detailed-exitcode"
+              sh "${TERRAFORM_HOME}/terraform plan -out tfplan"
 
               echo 'terraform apply...'
               sh "${TERRAFORM_HOME}/terraform apply -input=false -auto-approve tfplan"
