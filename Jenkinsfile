@@ -11,7 +11,6 @@ pipeline {
         }
       }
     }
-    /*
     stage('packer') {
       environment {
         PACKER_HOME = tool name: 'packer-1.1.3', type: 'biz.neustar.jenkins.plugins.packer.PackerInstallation'
@@ -32,7 +31,7 @@ pipeline {
           sh "${PACKER_HOME}/packer build packer/azure-template.json"
         }
       }
-    }*/
+    }
     stage('terraform') {
       environment {
         TERRAFORM_HOME = tool name: 'terraform-0.11.3'
