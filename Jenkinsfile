@@ -21,6 +21,7 @@ pipeline {
         PACKER_LOCATION="westeurope"
         PACKER_TENANT_ID="787717a7-1bf4-4466-8e52-8ef7780c6c42"
         PACKER_OBJECT_ID="56e89fa0-e748-49f4-9ff0-0d8b9e3d4057"
+        PACKER_IMAGE_NAME = "mh-${env.BUILD_ID}"
 
       }
       steps {
@@ -40,13 +41,16 @@ pipeline {
         ARM_CLIENT_SECRET=credentials('055c1ba4-c706-451c-aa45-0cd72ec796e8')
         ARM_TENANT_ID="787717a7-1bf4-4466-8e52-8ef7780c6c42"
         ARM_ENVIRONMENT="public"
+        TF_VAR_build_id="${env.BUILD_ID}"
+        TF_VAR_user="mh"
+        TF_VAR_password=credentials('283cce48-9ad2-42b5-80b7-61975c1bfdc5')
       }
       steps {
         wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
           dir ('terraform') {
             script {
               echo 'terraform init...'
-              sh "${TERRAFORM_HOME}/terraform init -input=false -backend-config=\"key=mh.terraform.tfstate\""
+              sh "${TERRAFORM_HOME}/terraform init -input=false -backend-config=\"key=${TF_VAR_user}.terraform.tfstate\""
 
               echo 'terraform plan ..'
               sh "${TERRAFORM_HOME}/terraform plan -out tfplan -detailed-exitcode"
