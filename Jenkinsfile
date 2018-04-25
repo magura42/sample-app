@@ -43,16 +43,17 @@ pipeline {
       }
       steps {
         wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
+          script {
+            echo 'terraform init...'
 
-          echo 'terraform init...'
+            echo 'terraform plan ..'
+            def exitcodePlan = sh "${TERRAFORM_HOME}/terraform plan -out tfplan -detailed-exitcode"
 
-          echo 'terraform plan ..'
-          def exitcodePlan = sh "${TERRAFORM_HOME}/terraform plan -out tfplan -detailed-exitcode"
-
-          if (exitcodePlan == 2) {
-            echo 'terraform apply...'
-          } else {
-            echo 'no changes present => abort terraform.'
+            if (exitcodePlan == 2) {
+              echo 'terraform apply...'
+            } else {
+              echo 'no changes present => abort terraform.'
+            }
           }
         }
       }
