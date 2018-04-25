@@ -52,10 +52,10 @@ pipeline {
               sh "${TERRAFORM_HOME}/terraform init -input=false -backend-config=\"key=${TF_VAR_user}.terraform.tfstate\""
 
               echo 'terraform plan ..'
-              sh "${TERRAFORM_HOME}/terraform plan -out tfplan"
+              sh "${TERRAFORM_HOME}/terraform plan -lock=false -out tfplan"
 
               echo 'terraform apply...'
-              sh "${TERRAFORM_HOME}/terraform apply -input=false -auto-approve tfplan"
+              sh "${TERRAFORM_HOME}/terraform apply -lock=false -input=false -auto-approve tfplan"
             }
           }
         }
