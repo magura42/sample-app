@@ -41,7 +41,7 @@ pipeline {
         ARM_CLIENT_SECRET=credentials('055c1ba4-c706-451c-aa45-0cd72ec796e8')
         ARM_TENANT_ID="787717a7-1bf4-4466-8e52-8ef7780c6c42"
         ARM_ENVIRONMENT="public"
-        TF_VAR_build_id="37"
+        TF_VAR_build_id="${env.BUILD_ID}"
         TF_VAR_user="mh"
         TF_VAR_password=credentials('055c1ba4-c706-451c-aa45-0cd72ec796e8')
       }
