@@ -7,12 +7,11 @@ terraform {
     resource_group_name = "jambitiac"
     storage_account_name = "jambitiac"
     container_name       = "tfstate"
-    key = "mh.terraform.tfstate"
   }
 }
 
 resource "azurerm_resource_group" "sample_app" {
-  name     = "rg_mh_sample_app"
+  name     = "rg_${ var.user }_sample_app"
   location = "westeurope"
   tags {
     enviornment = "Produktion"
@@ -32,7 +31,7 @@ data "azurerm_resource_group" "image" {
 }
 
 data "azurerm_image" "image" {
-  name                = "mh-1524574619"
+  name                = "${ var.user }-${ var.build_id }"
   resource_group_name = "${data.azurerm_resource_group.image.name}"
 }
 
@@ -119,8 +118,8 @@ resource "azurerm_virtual_machine" "test" {
 
   os_profile {
     computer_name  = "${data.azurerm_image.image.name}-${count.index}"
-    admin_username = "jambitadmin"
-    admin_password = "Password1234!"
+    admin_username = "${ var.user }"
+    admin_password = "${ var.password }"
   }
 
   os_profile_linux_config {

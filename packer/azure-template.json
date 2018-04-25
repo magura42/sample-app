@@ -4,7 +4,7 @@
 
     "client_id": "{{ user `client_id` }}",
     "client_secret": "{{ user `client_secret` }}",
-    "managed_image_name": "{{ user `image_postfix` }}",
+    "managed_image_name": "{{ user `managed_image_name` }}",
     "managed_image_resource_group_name": "jambitiac",
     "subscription_id": "{{ user `subscription_id` }}",
     "tenant_id": "{{ user `tenant_id` }}",
@@ -36,11 +36,11 @@
       }
   ],
   "variables": {
-    "image_postfix": "mh-{{timestamp}}",
     "subscription_id": "{{ env `PACKER_SUBSCRIPTION_ID` }}",
     "client_id": "{{ env `PACKER_CLIENT_ID` }}",
     "client_secret": "{{ env `PACKER_CLIENT_SECRET` }}",
     "location": "{{ env `PACKER_LOCATION` }}",
-    "tenant_id": "{{ env `PACKER_TENANT_ID` }}"
+    "tenant_id": "{{ env `PACKER_TENANT_ID` }}",
+    "managed_image_name": "{{ env `PACKER_IMAGE_NAME` }}"
   }
 }
