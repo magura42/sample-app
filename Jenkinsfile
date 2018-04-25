@@ -43,7 +43,7 @@ pipeline {
         ARM_ENVIRONMENT="public"
         TF_VAR_build_id="${env.BUILD_ID}"
         TF_VAR_user="mh"
-        TF_VAR_password=credentials('283cce48-9ad2-42b5-80b7-61975c1bfdc5')
+        TF_VAR_password=credentials('055c1ba4-c706-451c-aa45-0cd72ec796e8')
       }
       steps {
         wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
